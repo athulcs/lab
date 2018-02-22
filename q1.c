@@ -4,7 +4,7 @@
 #include<sys/types.h>
 #include<string.h>
 int p[2];
-
+int q[2];
 void *t11(void *gp)
 { char str[20];
   int i,result;
@@ -26,14 +26,14 @@ void *t12(void *gp)
  printf("Executing thread T12\n");
  int a,result,i;
  printf("Enter 5 numbers:\n");
- close(p[0]);
+ close(q[0]);
  for(i=0;i<5;i++){
  scanf("%d",&a);
- result=write(p[1],&a,sizeof(int));
+ result=write(q[1],&a,sizeof(int));
  if (result < 0)
    printf("pipewrite error\n");
  }
-close(p[1]);
+close(q[1]);
 
 }
 
@@ -58,11 +58,11 @@ void *t22(void *gp)
  printf("Executing Thread T22\n");
  int a1,i,l=0;
  for(i=0;i<5;i++){
-  read(p[0],&a1,sizeof(int));
+  read(q[0],&a1,sizeof(int));
   if(a1>l)
    l=a1;
  }
- close(p[0]);
+ close(q[0]);
 printf("Largest Number is:%d\n",l);
 }
 
@@ -71,6 +71,7 @@ int main(){
 
 int i,result;
 result=pipe(p);
+pipe(q);
 pid_t pid1;
 pthread_t tpid12,tpid21,tpid11,tpid22;
 pid1=fork();
@@ -79,10 +80,18 @@ if(pid1){
 pthread_create(&tpid11,NULL,t11,NULL);
 pthread_join(tpid11,NULL);
 
+pthread_create(&tpid12,NULL,t12,NULL);
+pthread_join(tpid12,NULL);
+
+
 }
 else{
 pthread_create(&tpid21,NULL,t21,NULL);
 pthread_join(tpid21,NULL);
+
+pthread_create(&tpid22,NULL,t22,NULL);
+pthread_join(tpid22,NULL);
+
 }
 
 return 0;
