@@ -1,27 +1,50 @@
-/*Create 2 processes and communicate between these 2 processes using shared memory*/
+/*Process P1 and P2 increments the value of num 5 times.Num initially=0*/
+#include<stdio.h>
+#include<pthread.h>
+#include<semaphore.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
+#include<unistd.h>
 
-#include<sys/types.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <stdio.h>
+sem_t mutex;
+int data = 0,rcount = 0;
+
 int main()
-{
-    key_t key = ftok("shmfile",65);
-    int shmid = shmget(key,1024,0666|IPC_CREAT);
-    char *str = (char*) shmat(shmid,(void*)0,0);
-    printf("Write Data : ");
-    gets(str);
-    printf("Data written in memory: %s\n",str);
-    shmdt(str);
-    pid_t pid1;
-    pid1 = fork();
-    if(pid1==0){
+    { sem_init(&mutex,0,1);
       key_t key = ftok("shmfile",65);
       int shmid = shmget(key,1024,0666|IPC_CREAT);
-      char *str = (char*) shmat(shmid,(void*)0,0);
-      printf("Data read from memory: %s\n",str);
-      shmdt(str);
-      shmctl(shmid,IPC_RMID,NULL);
+      int *num = (int *) shmat(shmid,NULL,0);
+      (*num)=0;
+      shmdt(num);
+  
+  pid_t pid1;
+  pid1=fork();
+  if(pid1){
+    for(int i=0;i<5;i++){
+      key_t key = ftok("shmfile",65);
+      int shmid = shmget(key,1024,0666|IPC_CREAT);
+      int *num = (int *) shmat(shmid,NULL,0);
+      sem_wait(&mutex);
+      printf("Data read from memory by P1: %d\n",*num);
+      printf("Incremented value by P1: %d\n",++(*num));
+      sem_post(&mutex);
+      sleep(1);
+      shmdt(num);
     }
-    return 0;
+    
+  }
+  else{
+      for(int i=0;i<5;i++){
+        key_t key = ftok("shmfile",65);
+        int shmid = shmget(key,1024,0666|IPC_CREAT);
+        int *num = (int*) shmat(shmid,NULL,0);
+        sem_wait(&mutex);
+        printf("Data read from memory by P2: %d\n",*num);
+        printf("Incremented value by P2: %d\n",++(*num));
+        sem_post(&mutex);
+        shmdt(num);
+      }
+
+  }
+  return 0;
 }
