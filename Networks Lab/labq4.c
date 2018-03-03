@@ -2,7 +2,6 @@
 #include<stdio.h>
 #include<pthread.h>
 #include<semaphore.h>
-#include<sys/ipc.h>
 #include<sys/shm.h>
 #include<unistd.h>
 
@@ -10,13 +9,12 @@ sem_t mutex;
 int data = 0,rcount = 0;
 
 int main()
-    { sem_init(&mutex,0,1);
-      key_t key = ftok("shmfile",65);
-      int shmid = shmget(key,1024,0666|IPC_CREAT);
-      int *num = (int *) shmat(shmid,NULL,0);
-      (*num)=0;
-      shmdt(num);
-  
+{ sem_init(&mutex,0,1);
+  key_t key = ftok("shmfile",65);
+  int shmid = shmget(key,1024,0666|IPC_CREAT);
+  int *num = (int *) shmat(shmid,NULL,0);
+  (*num)=0;
+  shmdt(num);  
   pid_t pid1;
   pid1=fork();
   if(pid1){
