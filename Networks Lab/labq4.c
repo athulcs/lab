@@ -26,7 +26,6 @@ int main()
       printf("Incremented value by P1: %d\n",++(*num));
       sem_post(&mutex);
       sleep(1);
-      shmdt(num);
     }
     
   }
@@ -39,7 +38,6 @@ int main()
         printf("Data read from memory by P2: %d\n",*num);
         printf("Incremented value by P2: %d\n",++(*num));
         sem_post(&mutex);
-        shmdt(num);
       }
 
   }
