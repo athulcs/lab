@@ -8,10 +8,9 @@
 #include<fcntl.h>
 
 sem_t mutex;
-int data = 0,rcount = 0;
-
 int main()
-{ sem_init(&mutex,0,1);
+{ 
+  sem_init(&mutex,0,1);
   int shm_fd = shm_open("shmfile", O_CREAT | O_RDWR, 0666);
   ftruncate(shm_fd, 10);
   int *num = mmap(NULL, 10, PROT_WRITE, MAP_SHARED, shm_fd, 0);
