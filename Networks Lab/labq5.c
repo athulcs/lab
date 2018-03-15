@@ -13,7 +13,7 @@ int readcount = 0,*data;
 void *reader(void *arg)
 {
   int f;
-  f = (intptr_t)arg;
+  f = (int)arg;
   sem_wait(&mutex);
   readcount++;
   if(readcount==1)
@@ -31,7 +31,7 @@ void *reader(void *arg)
 void *writer(void *arg)
 {
   int f;
-  f = (intptr_t) arg;
+  f = (int) arg;
   sem_wait(&writeblock);
   ++(*data);
   printf("Data writen by the writer%d is %d\n",f,*data);

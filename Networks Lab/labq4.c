@@ -14,8 +14,7 @@ int main()
   int shm_fd = shm_open("shmfile", O_CREAT | O_RDWR, 0666);
   ftruncate(shm_fd, 10);
   int *num = mmap(NULL, 10, PROT_WRITE, MAP_SHARED, shm_fd, 0);
-  (*num)=0;
-  shmdt(num);  
+  (*num)=0; 
   pid_t pid1;
   pid1=fork();
   if(pid1){
