@@ -40,10 +40,28 @@ void main(){
 		}
 	}while(count);
 
+	int states=0;		//Finding Equivalent States
+	int min[n];
+	int k;
+	for(i=0;i<n;i++)
+		min[i]=-1;
 	for(i=0;i<n;i++){
 		for(j=0;j<n;j++)
-			if(j<i)
-				printf("%d",myhill[i][j]);
-		printf("\n");	
-	}
+			if(j<i&&myhill[i][j]==0&&min[i]<0&&min[j]<0){
+				min[i]=states;
+				min[j]=states;
+				for(k=i;k<n;k++)
+					if(myhill[k][j]==0)
+						min[k]=states;
+				states++;		
+			}
+		}
+			while(states>=0){
+				for(i=0;i<n;i++){
+					if(min[i]==states)
+					printf("Q%d,",i);
+				}
+				printf("can be grouped together.\n");
+				states--;
+			}
 }
