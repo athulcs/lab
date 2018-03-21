@@ -40,7 +40,14 @@ void main(){
 		}
 	}while(count);
 
-	int states=0;		//Finding Equivalent States
+	for(i=0;i<n;i++){
+			for(j=0;j<n;j++)
+				if(j<i)
+				printf("%d",myhill[i][j]);
+			printf("\n");
+		}
+
+	int states=0;		//Grouping unmarked positions in table
 	int min[n];
 	int k;
 	for(i=0;i<n;i++)
