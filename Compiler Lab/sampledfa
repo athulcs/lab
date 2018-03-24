@@ -1,4 +1,4 @@
-DFA 1 (6states)
+DFA 1 (6states,2alphabets)
 1
 3
 0
@@ -19,7 +19,7 @@ DFA 1 (6states)
 0
 Answer-q0,q1:q2,q3,q4
 
-DFA 2 (5states)
+DFA 2 (5states,2alphabets)
 2
 1
 1
