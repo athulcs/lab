@@ -1,13 +1,13 @@
 #include<stdio.h>
 void main(){
 	int i,j,k,n,a,count;
-	//printf("DFA has only 2 alphabets (1|0)\n");
 	printf("------------------------------\n");
 	printf("Enter the number of states:");
 	scanf("%d",&n);
 	printf("Enter the number of alphabets:");
 	scanf("%d",&a);
 	int dfa[n][a],fin[n];
+
 	for(i=0;i<n;i++){		//Inputting the DFA
 		for(j=0;j<a;j++){	
 			printf("(Q%d,%d)=",i,j);
@@ -17,7 +17,8 @@ void main(){
 		scanf("%d",&fin[i]);
 		printf("\n");
 	}
-	int myhill[n][n]; //Initialising minimisation table
+
+	int myhill[n][n]; 		//Initialising minimisation table(Final and NonFinal)
 	for(i=0;i<n;i++){
 		for(j=0;j<n;j++){
 			if(j<i){
@@ -31,7 +32,7 @@ void main(){
 		}
 	}
 
-	do{			//Completing table by checking transitions
+	do{						//Completing table by checking transitions
 		count=0;
 		for(i=0;i<n;i++){
 			for(j=0;j<n;j++){
@@ -49,14 +50,7 @@ void main(){
 		}
 	}while(count);
 
-/*	for(i=0;i<n;i++){
-			for(j=0;j<n;j++)
-				if(j<i)
-				printf("%d",myhill[i][j]);
-			printf("\n");
-		}
-*/
-	int states=-1;		//Grouping unmarked positions in table
+	int states=-1;			//Grouping unmarked positions in table
 	int min[n];
 	for(i=0;i<n;i++)
 		min[i]=-1;
@@ -71,7 +65,8 @@ void main(){
 						min[k]=states;
 			}
 		}
-	if(states>=0){		
+
+	if(states>=0){			//Printing Equivalent States
 		while(states>=0){
 			for(i=0;i<n;i++){
 				if(min[i]==states)
