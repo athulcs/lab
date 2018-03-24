@@ -15,6 +15,7 @@ void main(){
 		}
 		printf("Is Q%d final or not?(1/0):",i);
 		scanf("%d",&fin[i]);
+		printf("\n");
 	}
 	int myhill[n][n]; //Initialising minimisation table
 	for(i=0;i<n;i++){
@@ -48,14 +49,14 @@ void main(){
 		}
 	}while(count);
 
-	for(i=0;i<n;i++){
+/*	for(i=0;i<n;i++){
 			for(j=0;j<n;j++)
 				if(j<i)
 				printf("%d",myhill[i][j]);
 			printf("\n");
 		}
-
-/*	int states=0;		//Grouping unmarked positions in table
+*/
+	int states=0;		//Grouping unmarked positions in table
 	int min[n];
 	for(i=0;i<n;i++)
 		min[i]=-1;
@@ -70,6 +71,7 @@ void main(){
 				states++;		
 			}
 		}
+		states--;
 			while(states>=0){
 				for(i=0;i<n;i++){
 					if(min[i]==states)
@@ -77,5 +79,6 @@ void main(){
 				}
 				printf("can be grouped together.\n");
 				states--;
-			}*/
+			}
+	printf("------------------------------\n");
 }
