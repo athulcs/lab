@@ -1,4 +1,6 @@
 DFA 1 (6states,2alphabets)
+6
+2
 1
 3
 0
@@ -20,6 +22,8 @@ DFA 1 (6states,2alphabets)
 Answer-q0,q1:q2,q3,q4
 
 DFA 2 (5states,2alphabets)
+5
+2
 2
 1
 1
@@ -38,6 +42,8 @@ DFA 2 (5states,2alphabets)
 Answer:q0,q4
 
 DFA 3 (6states,2alphabets)
+6
+2
 1
 3
 1
@@ -59,6 +65,8 @@ DFA 3 (6states,2alphabets)
 Answer:q0,q2:q3,q5
 
 DFA 4(5states,3alphabets)
+5
+3
 0
 1
 2
