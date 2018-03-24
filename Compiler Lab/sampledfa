@@ -57,3 +57,26 @@ DFA 3 (6states,2alphabets)
 4
 0
 Answer:q0,q2:q3,q5
+
+DFA 4(5states,3alphabets)
+0
+1
+2
+1
+3
+4
+0
+0
+1
+2
+3
+0
+4
+0
+1
+0
+4
+4
+4
+0
+Answer:Already minimal
